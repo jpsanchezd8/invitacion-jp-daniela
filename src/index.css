@@ -62,6 +62,7 @@
   --font-display: "Italiana", serif;
   --font-serif: "Cormorant Garamond", serif;
   --font-sans: "Inter", sans-serif;
+  --font-script: "Alex Brush", cursive;
 }
 
 @layer base {

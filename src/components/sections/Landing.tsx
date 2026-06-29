@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { WEDDING_CONFIG } from "@/config/wedding"
@@ -7,6 +7,20 @@ export function Landing() {
   const [isOpen, setIsOpen] = useState(false)
   const reducedMotion = useReducedMotion()
   const { couple, date } = WEDDING_CONFIG
+
+  const openEnvelope = useCallback(() => {
+    if (!isOpen) setIsOpen(true)
+  }, [isOpen])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault()
+        openEnvelope()
+      }
+    },
+    [openEnvelope],
+  )
 
   const weddingDate = new Date(date)
   const formattedDate = weddingDate.toLocaleDateString("es-ES", {
@@ -51,7 +65,7 @@ export function Landing() {
             ease: "easeOut",
           }}
         >
-          <h1 className="font-display text-borgona leading-tight text-5xl md:text-6xl">
+          <h1 className="font-script text-borgona leading-snug text-6xl md:text-7xl">
             {couple.groom}
             <span className="block font-serif text-oliva text-2xl md:text-3xl my-2">
               &
@@ -163,13 +177,13 @@ export function Landing() {
 
             {/* Wax seal */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-              <motion.button
-                className="size-[clamp(64px,18vw,80px)] rounded-full bg-borgona flex items-center justify-center cursor-pointer"
-                style={{
-                  boxShadow:
-                    "0 4px 14px rgba(107, 39, 55, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.15)",
-                }}
-                onClick={() => !isOpen && setIsOpen(true)}
+              <motion.div
+                className="cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-oliva focus-visible:ring-offset-2 focus-visible:ring-offset-marfil rounded-full"
+                role="button"
+                tabIndex={0}
+                aria-label="Sello de lacre con monograma J&D — Toca para abrir la invitación"
+                onClick={openEnvelope}
+                onKeyDown={handleKeyDown}
                 initial={false}
                 animate={
                   isOpen
@@ -178,24 +192,24 @@ export function Landing() {
                       : { rotate: 15, scale: 1.3, opacity: 0 }
                     : { rotate: 0, scale: 1, opacity: 1 }
                 }
-                transition={{ duration: reducedMotion ? 0.3 : 0.3 }}
-                whileHover={!isOpen ? { scale: 1.08 } : undefined}
+                transition={{ duration: 0.3 }}
+                whileHover={!isOpen && !reducedMotion ? { scale: 1.05, transition: { duration: 0.2 } } : undefined}
                 whileTap={!isOpen ? { scale: 0.95 } : undefined}
-                aria-label="Abrir invitación"
               >
-                {/* Seal inner ring */}
-                <span className="flex items-center justify-center size-[85%] rounded-full border border-white/20">
-                  <span className="font-display text-white text-lg md:text-xl tracking-wider">
-                    J & D
-                  </span>
-                </span>
-              </motion.button>
+                <img
+                  src="/sello-jd.png"
+                  alt="Sello de lacre con monograma J&D - Toca para abrir la invitación"
+                  loading="eager"
+                  draggable={false}
+                  className="w-[100px] sm:w-[140px] h-auto drop-shadow-[0_4px_12px_rgba(91,107,58,0.35)] select-none pointer-events-none"
+                />
+              </motion.div>
 
               {/* Pulse hint */}
               {!isOpen && (
                 <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-borgona/30 pointer-events-none"
-                  animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
+                  className="absolute inset-0 rounded-full border-2 border-oliva/30 pointer-events-none"
+                  animate={reducedMotion ? {} : { scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
                   transition={{
                     repeat: Infinity,
                     duration: 2.5,
