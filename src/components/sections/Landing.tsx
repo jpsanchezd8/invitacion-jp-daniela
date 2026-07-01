@@ -31,6 +31,39 @@ export function Landing() {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center bg-marfil overflow-hidden">
+      {/* Vineyard background — visible while envelope is closed, fades out on open */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: isOpen ? 0 : 1 }}
+        transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeOut" }}
+      >
+        <img
+          src="/vinedo-bg.jpg"
+          alt=""
+          loading="eager"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-marfil/[0.45]" />
+      </motion.div>
+
+      {/* Couple photo background — fades in when envelope opens */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isOpen ? 1 : 0 }}
+        transition={{ duration: reducedMotion ? 0 : 1, ease: "easeOut" }}
+      >
+        <img
+          src="/foto-landing.jpg"
+          alt=""
+          loading="eager"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          style={{ filter: "grayscale(1) sepia(0.2) hue-rotate(70deg) saturate(0.9) brightness(1.1) contrast(1.1)" }}
+        />
+        <div className="absolute inset-0 bg-marfil/[0.65]" />
+      </motion.div>
+
       {/* Paper noise texture */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
         <svg width="100%" height="100%">
@@ -48,11 +81,12 @@ export function Landing() {
 
       <div
         className="relative flex items-center justify-center"
-        style={{ minHeight: "420px" }}
+        style={{ minHeight: "340px" }}
       >
         {/* ── Letter content (behind envelope) ── */}
         <motion.div
           className="text-center px-8 max-w-lg"
+          style={{ textShadow: "0 1px 5px rgba(251,248,242,0.7), 0 0 14px rgba(251,248,242,0.45)" }}
           initial={false}
           animate={
             isOpen
@@ -65,24 +99,54 @@ export function Landing() {
             ease: "easeOut",
           }}
         >
-          <h1 className="font-script text-borgona leading-snug text-6xl md:text-7xl">
-            {couple.groom}
-            <span className="block font-serif text-oliva text-2xl md:text-3xl my-2">
-              &
+          <h1
+            className="font-script text-borgona antialiased text-center"
+            style={{ fontSize: "clamp(2.75rem, 10vw, 6rem)", lineHeight: "1.6" }}
+          >
+            <span className="whitespace-nowrap">{couple.groom}</span>
+            {" "}
+            <span className="whitespace-nowrap">
+              <span
+                className="font-script text-borgona"
+                style={{
+                  fontSize: "clamp(1.5125rem, 5.5vw, 3.3rem)",
+                  display: "inline-block",
+                  verticalAlign: "middle",
+                  lineHeight: 1,
+                  position: "relative",
+                  top: "-1.55em",
+                }}
+              >
+                {"& "}
+              </span>
+              {couple.bride}
             </span>
-            {couple.bride}
           </h1>
 
-          <p className="mt-8 font-serif text-base md:text-lg text-texto/80 leading-relaxed italic">
-            Con inmensa alegría queremos compartir uno de los momentos más
-            importantes de nuestras vidas. Te invitamos a acompañarnos en la
-            celebración de nuestro matrimonio y a brindar con nosotros entre los
-            viñedos que han sido testigos de nuestra historia.
+          <p className="mt-8 font-serif text-base md:text-lg text-texto font-medium leading-relaxed italic">
+            El amor nos ha traído hasta este momento y queremos celebrarlo junto
+            a las personas que más queremos. Será un honor contar con su
+            presencia en nuestro matrimonio y compartir juntos el inicio de
+            esta nueva etapa.
           </p>
 
-          <p className="mt-6 font-sans text-sm text-oliva tracking-[0.2em] uppercase">
-            {formattedDate}
-          </p>
+          <div className="mt-6 flex items-center gap-3">
+            <span className="flex-1 h-px bg-oliva/30" />
+            <span className="text-oliva/50 text-xs">✦</span>
+            <span className="flex-1 h-px bg-oliva/30" />
+          </div>
+
+          <div className="mt-4 flex flex-col items-center gap-1">
+            <p className="font-sans text-xs text-borgona tracking-[0.2em] uppercase">
+              24 DE ABRIL DE 2027
+            </p>
+            <p className="font-sans text-xs text-borgona tracking-[0.2em] uppercase">
+              FINCA EL ORIGEN
+            </p>
+            <p className="font-sans text-xs text-borgona tracking-[0.15em]">
+              Aranjuez, Tarija
+            </p>
+          </div>
 
           <motion.div
             className="mt-10"
@@ -113,7 +177,7 @@ export function Landing() {
         >
           <div
             className="relative"
-            style={{ width: "clamp(300px, 80vw, 480px)" }}
+            style={{ width: "clamp(250px, 65vw, 400px)" }}
           >
             {/* Envelope body */}
             <div
@@ -154,7 +218,7 @@ export function Landing() {
                 className="w-full"
                 style={{
                   clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                  height: "clamp(100px, 27vw, 165px)",
+                  height: "clamp(82px, 22vw, 136px)",
                   transformOrigin: "top center",
                   backgroundColor: "#EBE3D5",
                   border: "1px solid rgba(91, 107, 58, 0.15)",
@@ -201,7 +265,7 @@ export function Landing() {
                   alt="Sello de lacre con monograma J&D - Toca para abrir la invitación"
                   loading="eager"
                   draggable={false}
-                  className="w-[100px] sm:w-[140px] h-auto drop-shadow-[0_4px_12px_rgba(91,107,58,0.35)] select-none pointer-events-none"
+                  className="w-[82px] sm:w-[115px] h-auto drop-shadow-[0_4px_12px_rgba(91,107,58,0.35)] select-none pointer-events-none"
                 />
               </motion.div>
 
@@ -224,7 +288,7 @@ export function Landing() {
 
       {/* Microcopy */}
       <motion.p
-        className="mt-8 font-sans text-sm text-oliva/70 tracking-wide"
+        className="mt-5 font-sans text-sm text-oliva/70 tracking-wide"
         initial={false}
         animate={{ opacity: isOpen ? 0 : 1 }}
         transition={{ duration: 0.3 }}

@@ -27,7 +27,7 @@ export function Closing() {
         </motion.p>
 
         <motion.p
-          className="mt-10 font-script text-5xl md:text-6xl text-borgona leading-snug"
+          className="mt-10 font-script text-7xl md:text-8xl text-borgona leading-loose antialiased"
           {...fade(0.15)}
         >
           {couple.groom} & {couple.bride}

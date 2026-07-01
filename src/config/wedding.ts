@@ -44,11 +44,9 @@ export interface WeddingConfig {
     description: string
     url: string
   }>
-  timeline: Array<{
-    year: string
-    title: string
-    description: string
-  }>
+  story: {
+    paragraphs: string[]
+  }
 }
 
 export const WEDDING_CONFIG: WeddingConfig = {
@@ -66,18 +64,18 @@ export const WEDDING_CONFIG: WeddingConfig = {
   },
 
   ceremony: {
-    venueName: "[PLACEHOLDER - completar nombre de la iglesia/lugar de ceremonia]",
-    address: "[PLACEHOLDER - completar dirección de la ceremonia]",
-    time: "16:00",
-    googleMapsUrl: "[PLACEHOLDER - completar URL de Google Maps de la ceremonia]",
+    venueName: "Capilla San Juan de la Loma",
+    address: "Calle Bolívar & Ingavi, Tarija",
+    time: "15:00",
+    googleMapsUrl: "https://maps.app.goo.gl/zj6zzReiRJR3dGPZ7?g_st=aw",
   },
 
   reception: {
-    venueName: "[PLACEHOLDER - completar nombre del salón de recepción]",
-    address: "[PLACEHOLDER - completar dirección de la recepción]",
-    time: "19:00",
-    description: "[PLACEHOLDER - completar descripción del lugar de recepción]",
-    googleMapsUrl: "[PLACEHOLDER - completar URL de Google Maps de la recepción]",
+    venueName: "Finca El Origen",
+    address: "La Nueva, Ruta del Vino Santa Ana, Tarija",
+    time: "17:00",
+    description: "Viñedo Bodega Aranjuez",
+    googleMapsUrl: "https://maps.app.goo.gl/19Koov5STRy3dzDu7",
     dressCode: "Formal / Elegante",
   },
 
@@ -132,31 +130,12 @@ export const WEDDING_CONFIG: WeddingConfig = {
     },
   ],
 
-  timeline: [
-    {
-      year: "[PLACEHOLDER - año]",
-      title: "Nos conocimos",
-      description: "[PLACEHOLDER - completar descripción de cómo se conocieron]",
-    },
-    {
-      year: "[PLACEHOLDER - año]",
-      title: "Primera cita",
-      description: "[PLACEHOLDER - completar descripción de la primera cita]",
-    },
-    {
-      year: "[PLACEHOLDER - año]",
-      title: "Primer viaje juntos",
-      description: "[PLACEHOLDER - completar descripción del primer viaje]",
-    },
-    {
-      year: "[PLACEHOLDER - año]",
-      title: "La propuesta",
-      description: "[PLACEHOLDER - completar descripción de la propuesta de matrimonio]",
-    },
-    {
-      year: "2027",
-      title: "Nos casamos",
-      description: "El día que unimos nuestras vidas para siempre.",
-    },
-  ],
+  story: {
+    paragraphs: [
+      "Hace nueve años, nuestros caminos se cruzaron de la manera más inesperada. Nos conocimos gracias a una plataforma ciudadana. Ninguno de los dos iba buscando el amor; simplemente asistimos a una reunión, sin imaginar que ese día cambiaría nuestras vidas.",
+      "Con el tiempo empezamos a conocernos, a compartir conversaciones, risas y momentos que, casi sin darnos cuenta, se transformaron en cariño y luego en amor.",
+      "Lo más curioso es que siempre habíamos estado muy cerca. Teníamos muchos amigos en común, frecuentábamos los mismos lugares y, aun así, nunca nos habíamos encontrado. Como si la vida hubiera esperado el instante perfecto para presentarnos.",
+      "Desde aquel día comenzó nuestra historia. El 23 de abril de 2017 decidimos comenzar este hermoso camino juntos.",
+    ],
+  },
 }

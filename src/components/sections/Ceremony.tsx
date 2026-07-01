@@ -3,62 +3,91 @@ import { motion, useInView, useReducedMotion } from "framer-motion"
 import { MapPin, Clock } from "lucide-react"
 import { WEDDING_CONFIG } from "@/config/wedding"
 import { Button } from "@/components/ui/button"
+import { OrnamentDivider } from "@/components/ui/OrnamentDivider"
 
 export function Ceremony() {
   const { ceremony } = WEDDING_CONFIG
-  const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const imageRef = useRef<HTMLDivElement>(null)
+  const infoRef = useRef<HTMLDivElement>(null)
+  const isImageInView = useInView(imageRef, { once: true, margin: "-80px" })
+  const isInfoInView = useInView(infoRef, { once: true, margin: "-80px" })
   const reducedMotion = useReducedMotion()
 
-  const fade = (delay: number) => ({
-    initial: reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 },
-    animate: isInView ? { opacity: 1, y: 0 } : {},
-    transition: { duration: 0.5, delay },
+  const fadeUp = (delay: number) => ({
+    initial: reducedMotion ? { opacity: 0 } : { opacity: 0, y: 28 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
   })
 
   return (
-    <section ref={ref} className="py-20 px-6 bg-white">
-      <div className="max-w-lg mx-auto text-center">
-        <motion.h2
-          className="font-display text-4xl md:text-5xl text-borgona mb-10"
-          {...fade(0)}
-        >
-          Ceremonia
-        </motion.h2>
+    <section className="py-20 px-6 bg-marfil">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-center gap-12 md:gap-16">
 
-        <motion.p
-          className="font-serif text-2xl text-texto mb-6"
-          {...fade(0.1)}
-        >
-          {ceremony.venueName}
-        </motion.p>
-
-        <motion.div
-          className="flex flex-col items-center gap-3 mb-8 text-texto/70"
-          {...fade(0.15)}
-        >
-          <span className="inline-flex items-center gap-2 font-sans text-sm">
-            <Clock className="size-4 text-oliva" />
-            {ceremony.time} hrs
-          </span>
-          <span className="inline-flex items-center gap-2 font-sans text-sm">
-            <MapPin className="size-4 text-oliva" />
-            {ceremony.address}
-          </span>
-        </motion.div>
-
-        <motion.div {...fade(0.2)}>
-          <Button
-            asChild
-            className="bg-borgona hover:bg-borgona/90 text-white font-sans"
-            size="lg"
+          {/* ── Left column: image (40-45%) ── */}
+          <motion.div
+            ref={imageRef}
+            className="md:w-2/5 flex justify-center"
+            {...fadeUp(0)}
+            animate={isImageInView ? { opacity: 1, y: 0 } : {}}
           >
-            <a href={ceremony.googleMapsUrl} target="_blank" rel="noopener noreferrer">
-              <MapPin className="size-4" />
-              Ver ubicación en Google Maps
-            </a>
-          </Button>
-        </motion.div>
+            <div
+              className="w-full max-w-sm md:max-w-none flex items-center justify-center"
+              style={{ height: "480px" }}
+            >
+              <img
+                src="/capilla-ceremonia.png"
+                alt="Ilustración de la capilla donde se celebrará la ceremonia"
+                className="max-w-full max-h-full object-contain"
+              />
+            </div>
+          </motion.div>
+
+          {/* ── Right column: ceremony info (55-60%) ── */}
+          <motion.div
+            ref={infoRef}
+            className="md:w-3/5 md:pl-[84px]"
+            {...fadeUp(0.2)}
+            animate={isInfoInView ? { opacity: 1, y: 0 } : {}}
+          >
+            <h2 className="font-display text-4xl md:text-5xl text-borgona text-center md:text-left">
+              Ceremonia
+            </h2>
+
+            <div className="mt-5 mb-8 w-40 mx-auto md:mx-0">
+              <OrnamentDivider icon="none" />
+            </div>
+
+            <p className="font-serif text-2xl text-texto mb-6 text-center md:text-left">
+              {ceremony.venueName}
+            </p>
+
+            <div className="flex flex-col items-center md:items-start gap-3 mb-8 text-texto/80">
+              <span className="inline-flex items-center gap-2 font-sans text-sm">
+                <Clock className="size-4 text-oliva" />
+                {ceremony.time} hrs
+              </span>
+              <span className="inline-flex items-center gap-2 font-sans text-sm">
+                <MapPin className="size-4 text-oliva" />
+                {ceremony.address}
+              </span>
+            </div>
+
+            <div className="flex justify-center md:justify-start">
+              <Button
+                asChild
+                className="bg-borgona hover:bg-borgona/90 text-white font-sans"
+                size="lg"
+              >
+                <a href={ceremony.googleMapsUrl} target="_blank" rel="noopener noreferrer">
+                  <MapPin className="size-4" />
+                  Ver ubicación en Google Maps
+                </a>
+              </Button>
+            </div>
+          </motion.div>
+
+        </div>
       </div>
     </section>
   )

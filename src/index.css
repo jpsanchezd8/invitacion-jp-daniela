@@ -51,10 +51,10 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* Paleta de boda */
-  --color-marfil: #F5EFE4;
+  --color-marfil: #FBF8F2;
   --color-oliva: #5B6B3A;
   --color-oliva-claro: #8A9A6B;
-  --color-borgona: #6B2737;
+  --color-borgona: #4A1B26;
   --color-beige: #D9C9A8;
   --color-texto: #2A2A2A;
 
@@ -62,7 +62,7 @@
   --font-display: "Italiana", serif;
   --font-serif: "Cormorant Garamond", serif;
   --font-sans: "Inter", sans-serif;
-  --font-script: "Alex Brush", cursive;
+  --font-script: "Pinyon Script", cursive;
 }
 
 @layer base {
