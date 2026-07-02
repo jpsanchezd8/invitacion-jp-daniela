@@ -16,7 +16,7 @@ export function Ceremony() {
   const fadeUp = (delay: number) => ({
     initial: reducedMotion ? { opacity: 0 } : { opacity: 0, y: 28 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
   })
 
   return (

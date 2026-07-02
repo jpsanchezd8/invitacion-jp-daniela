@@ -6,7 +6,7 @@ import { WEDDING_CONFIG } from "@/config/wedding"
 export function Landing() {
   const [isOpen, setIsOpen] = useState(false)
   const reducedMotion = useReducedMotion()
-  const { couple, date } = WEDDING_CONFIG
+  const { couple } = WEDDING_CONFIG
 
   const openEnvelope = useCallback(() => {
     if (!isOpen) setIsOpen(true)
@@ -21,13 +21,6 @@ export function Landing() {
     },
     [openEnvelope],
   )
-
-  const weddingDate = new Date(date)
-  const formattedDate = weddingDate.toLocaleDateString("es-ES", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center bg-marfil overflow-hidden">
